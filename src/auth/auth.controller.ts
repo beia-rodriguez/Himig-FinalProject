@@ -12,7 +12,6 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { ForbiddenException } from '@nestjs/common';
 import { UserRole } from '../users/entities/user.entity';
 import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from './guards/roles.guard';
@@ -39,12 +38,18 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@Req() req: AuthenticatedRequest) {
+    return req.user;
+  }
+
   @UseGuards(JwtAuthGuard, RolesGuard)
-    @Roles(UserRole.ADMIN)
-    @Get('admin-test')
-    adminTest() {
+  @Roles(UserRole.ADMIN)
+  @Get('admin-test')
+  adminTest() {
     return {
-        message: 'Welcome, administrator! You have access to this resource.',
+      message: 'Welcome, administrator! You have access to this resource.',
     };
-    }
+  }
 }

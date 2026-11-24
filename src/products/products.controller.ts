@@ -43,7 +43,7 @@ export class ProductsController {
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createProductDto: CreateProductDto, @Request() req: any) {
-    return this.productsService.create(createProductDto, req.user.id);
+    return this.productsService.create(createProductDto, req.user.userId);
   }
 
   // Endpoint 11: Protected (Owner/Admin) - Update a listing
@@ -57,7 +57,7 @@ export class ProductsController {
     return this.productsService.update(
       id,
       updateProductDto,
-      req.user.id,
+      req.user.userId,
       req.user.role,
     );
   }
@@ -66,6 +66,6 @@ export class ProductsController {
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number, @Request() req: any) {
-    return this.productsService.remove(id, req.user.id, req.user.role);
+    return this.productsService.remove(id, req.user.userId, req.user.role);
   }
 }

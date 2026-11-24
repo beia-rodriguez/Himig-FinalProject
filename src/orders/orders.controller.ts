@@ -31,18 +31,18 @@ export class OrdersController {
   // Endpoint 15: Protected - Retrieve authenticated buyer's orders
   @Get('my-orders')
   findMyOrders(@Request() req: any) {
-    return this.ordersService.findMyOrders(req.user.id);
+    return this.ordersService.findMyOrders(req.user.userId);
   }
 
   // Endpoint 14: Protected (Buyer/Seller/Admin) - Retrieve specific order
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number, @Request() req: any) {
-    return this.ordersService.findOne(id, req.user.id, req.user.role);
+    return this.ordersService.findOne(id, req.user.userId, req.user.role);
   }
 
   // Endpoint 16: Protected - Create a purchase order
   @Post()
   create(@Body() createOrderDto: CreateOrderDto, @Request() req: any) {
-    return this.ordersService.create(createOrderDto, req.user.id);
+    return this.ordersService.create(createOrderDto, req.user.userId);
   }
 }

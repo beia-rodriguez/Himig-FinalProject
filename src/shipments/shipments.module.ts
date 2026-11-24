@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ShipmentsService } from './shipments.service';
 import { ShipmentsController } from './shipments.controller';
+import { Shipment } from './entities/shipment.entity';
+import { Order } from '../orders/entities/order.entity';
+import { Product } from '../products/entities/product.entity';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Shipment, Order, Product])],
+  controllers: [ShipmentsController],
   providers: [ShipmentsService],
-  controllers: [ShipmentsController]
+  exports: [ShipmentsService],
 })
 export class ShipmentsModule {}

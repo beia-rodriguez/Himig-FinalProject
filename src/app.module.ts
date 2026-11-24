@@ -10,6 +10,11 @@ import { Trade } from './trades/entities/trade.entity';
 import { Message } from './messages/entities/message.entity';
 import { Review } from './reviews/entities/review.entity';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
+import { OrdersModule } from './orders/orders.module';
+import { PaymentsModule } from './payments/payments.module';
+import { ShipmentsModule } from './shipments/shipments.module';
 
 @Module({
   imports: [
@@ -37,6 +42,11 @@ import { AuthModule } from './auth/auth.module';
     }),
 
     AuthModule,
+    UsersModule,
+    ProductsModule,
+    OrdersModule,
+    PaymentsModule,
+    ShipmentsModule,
   ],
 })
 export class AppModule {}
